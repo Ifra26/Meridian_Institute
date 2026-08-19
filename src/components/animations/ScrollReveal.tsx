@@ -24,7 +24,16 @@ export const ScrollReveal: React.FC<ScrollRevealProps> = ({
   ...rest
 }) => {
   const prefersReducedMotion = useReducedMotion();
-  const Component = motion[as];
+
+  const components = {
+    div: motion.div,
+    section: motion.section,
+    article: motion.article,
+    li: motion.li,
+    span: motion.span,
+  };
+
+  const Component = components[as];
 
   return (
     <Component
@@ -34,7 +43,7 @@ export const ScrollReveal: React.FC<ScrollRevealProps> = ({
       whileInView={prefersReducedMotion ? undefined : 'visible'}
       viewport={viewportOnce}
       transition={{ ...transitionPremium, delay }}
-      {...rest}
+      {...(rest as any)}
     >
       {children}
     </Component>
@@ -55,7 +64,14 @@ export const StaggerReveal: React.FC<StaggerRevealProps> = ({
   as = 'div',
 }) => {
   const prefersReducedMotion = useReducedMotion();
-  const Component = motion[as];
+
+  const components = {
+    div: motion.div,
+    ul: motion.ul,
+    section: motion.section,
+  };
+
+  const Component = components[as];
 
   if (prefersReducedMotion) {
     return <Component className={className}>{children}</Component>;
@@ -70,7 +86,10 @@ export const StaggerReveal: React.FC<StaggerRevealProps> = ({
       variants={{
         hidden: {},
         visible: {
-          transition: { staggerChildren: stagger, delayChildren: 0.05 },
+          transition: {
+            staggerChildren: stagger,
+            delayChildren: 0.05,
+          },
         },
       }}
     >
@@ -90,13 +109,22 @@ export const StaggerItem: React.FC<StaggerItemProps> = ({
   className,
   as = 'div',
 }) => {
-  const Component = motion[as];
+  const components = {
+    div: motion.div,
+    li: motion.li,
+    article: motion.article,
+  };
+
+  const Component = components[as];
 
   return (
     <Component
       className={className}
       variants={{
-        hidden: { opacity: 0, y: 24 },
+        hidden: {
+          opacity: 0,
+          y: 24,
+        },
         visible: {
           opacity: 1,
           y: 0,
