@@ -76,9 +76,9 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
           variants={heroBadgeVariants}
           initial={prefersReducedMotion ? false : 'hidden'}
           animate="visible"
-          className="inline-flex items-center gap-2 bg-meridian-gold/15 border border-meridian-gold/40 backdrop-blur-md text-meridian-gold-light px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-[0.2em] mb-6 shadow-lg"
+          className="inline-flex items-center gap-2 bg-meridian-gold/15 border border-meridian-gold/40 backdrop-blur-md text-meridian-gold-light px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-[0.2em] mb-6 shadow-lg animate-float-subtle"
         >
-          <Sparkles className="w-3.5 h-3.5 text-meridian-gold" />
+          <Sparkles className="w-3.5 h-3.5 text-meridian-gold animate-spin-slow" />
           <span>WELCOME TO THE MERIDIAN INSTITUTE</span>
         </motion.div>
 

@@ -66,9 +66,22 @@
 
 /* ── Premium Button Micro-interactions ── */
 .btn-premium-gold {
-  @apply bg-gradient-to-r from-meridian-gold via-amber-400 to-meridian-gold text-meridian-navy font-extrabold rounded-xl shadow-gold-glow flex items-center justify-center gap-3;
+  @apply bg-gradient-to-r from-meridian-gold via-amber-400 to-meridian-gold text-meridian-navy font-extrabold rounded-xl shadow-gold-glow flex items-center justify-center gap-3 relative overflow-hidden;
   transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.btn-premium-gold::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: left 0.65s ease;
+}
+.btn-premium-gold:hover::before {
+  left: 140%;
 }
 .btn-premium-gold:hover {
   transform: translateY(-2px) scale(1.02);
@@ -79,18 +92,18 @@
 }
 
 .btn-premium-glass {
-  @apply glass-panel text-white hover:text-meridian-gold font-semibold rounded-xl flex items-center justify-center gap-2 border border-white/20;
+  @apply glass-panel text-white hover:text-meridian-gold font-semibold rounded-xl flex items-center justify-center gap-2 border border-white/20 relative overflow-hidden;
   transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
     background-color 0.35s ease, box-shadow 0.35s ease;
 }
 .btn-premium-glass:hover {
   transform: translateY(-2px);
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.12);
   box-shadow: 0 8px 24px rgba(11, 19, 42, 0.3);
 }
 
 .btn-premium-navy {
-  @apply bg-meridian-navy hover:bg-meridian-navy-800 text-white font-semibold rounded-xl shadow-md flex items-center gap-2;
+  @apply bg-meridian-navy hover:bg-meridian-navy-800 text-white font-semibold rounded-xl shadow-md flex items-center gap-2 relative overflow-hidden;
   transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.35s ease;
 }
@@ -143,11 +156,30 @@
   transform: scale(1.04);
 }
 
-/* ── Scroll cue animation ── */
+/* ── Custom Floating & Shimmer Keyframes ── */
+@keyframes floatSubtle {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.05); }
+}
+
 @keyframes scrollCue {
   0%, 100% { transform: translateY(0); opacity: 0.6; }
   50% { transform: translateY(6px); opacity: 1; }
 }
+
+.animate-float-subtle {
+  animation: floatSubtle 4s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
 .animate-scroll-cue {
   animation: scrollCue 2s ease-in-out infinite;
 }
@@ -172,7 +204,9 @@
     animation: none !important;
   }
 
-  .animate-scroll-cue {
+  .animate-scroll-cue,
+  .animate-float-subtle,
+  .animate-pulse-glow {
     animation: none !important;
   }
 
@@ -183,3 +217,4 @@
     transform: none !important;
   }
 }
+

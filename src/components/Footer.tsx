@@ -11,7 +11,10 @@ import {
   Youtube, 
   Instagram, 
   ArrowUpRight,
-  ShieldCheck
+  ShieldCheck,
+  ArrowRight,
+  Sparkles,
+  BookOpen
 } from 'lucide-react';
 import { PageRoute } from '../types';
 import { Logo } from './Logo';
@@ -41,12 +44,48 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenProspectus, on
   };
 
   return (
-    <footer className="bg-meridian-navy text-slate-300 border-t border-meridian-gold/20 pt-16 pb-8 relative overflow-hidden">
-      {/* Background Subtle Accent Glow */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-meridian-gold/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-600/5 rounded-full blur-3xl pointer-events-none" />
+    <footer className="bg-meridian-navy text-slate-300 border-t border-meridian-gold/20 pt-0 pb-8 relative overflow-hidden">
+      
+      {/* Full-Width Immersive CTA Section */}
+      <div className="bg-gradient-to-r from-meridian-navy-950 via-meridian-navy to-meridian-navy-950 border-b border-meridian-gold/30 py-20 px-4 sm:px-8 relative overflow-hidden shadow-2xl">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-7xl h-full bg-meridian-gold/10 blur-3xl pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 relative z-10">
+        <div className="max-w-5xl mx-auto text-center space-y-6 relative z-10">
+          <div className="inline-flex items-center gap-2 bg-meridian-gold/15 border border-meridian-gold/40 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider text-meridian-gold shadow-md">
+            <Sparkles className="w-3.5 h-3.5 text-meridian-gold" />
+            <span>BECOME A MERIDIAN SCHOLAR</span>
+          </div>
+
+          <h2 className="font-serif text-3xl sm:text-5xl md:text-6xl font-extrabold text-white tracking-tight leading-tight">
+            Shape Your Future With <span className="gold-gradient-text">Meridian</span>
+          </h2>
+
+          <p className="text-slate-300 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+            Join Pakistan's premier institute of higher learning and international research. Applications for Fall 2026 are now open across all academic faculties.
+          </p>
+
+          <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <button
+              onClick={() => handleNav('apply')}
+              className="btn-premium-gold w-full sm:w-auto px-8 py-4 text-sm sm:text-base group"
+            >
+              <span>Apply Online For 2026</span>
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+            </button>
+
+            <button
+              onClick={() => handleNav('academics')}
+              className="btn-premium-glass w-full sm:w-auto px-8 py-4 text-sm sm:text-base group"
+            >
+              <BookOpen className="w-4 h-4 text-meridian-gold" />
+              <span>Explore All Programs</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Footer Links */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 relative z-10 pt-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-slate-800">
           
           {/* Brand Column */}
@@ -110,7 +149,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenProspectus, on
                 </button>
               </li>
               <li>
-                <button onClick={() => handleNav('gallery')} className="hover:text-meridian-gold transition-colors">
+                <button onClick={() => handleNav('campus-life')} className="hover:text-meridian-gold transition-colors">
                   Photo & Video Galleries
                 </button>
               </li>
@@ -217,3 +256,4 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenProspectus, on
     </footer>
   );
 };
+
