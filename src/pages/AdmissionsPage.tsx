@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Award, CheckCircle2, DollarSign, Calculator, FileText, ArrowRight, ShieldCheck, Sparkles } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Award, CheckCircle2, DollarSign, Calculator, FileText, ArrowRight, ShieldCheck, Sparkles, UserCheck, BookOpen, Layers } from 'lucide-react';
 import { PageRoute } from '../types';
 import { PageBanner, ScrollReveal, StaggerReveal, StaggerItem } from '../components/PageBanner';
 
@@ -8,6 +9,8 @@ interface AdmissionsPageProps {
 }
 
 export const AdmissionsPage: React.FC<AdmissionsPageProps> = ({ onNavigate }) => {
+  const [activeStepIdx, setActiveStepIdx] = useState<number>(0);
+
   // Calculator State
   const [level, setLevel] = useState<'undergraduate' | 'postgraduate' | 'certificate'>('undergraduate');
   const [scholarship, setScholarship] = useState<number>(0);
@@ -27,13 +30,15 @@ export const AdmissionsPage: React.FC<AdmissionsPageProps> = ({ onNavigate }) =>
   }, [level, scholarship, housing]);
 
   const ADMISSION_STEPS = [
-    { step: '01', title: 'Explore Programs', desc: 'Review degree options, entry requirements, and career opportunities.' },
-    { step: '02', title: 'Check Eligibility', desc: 'Ensure academic transcripts & language credentials meet standards.' },
-    { step: '03', title: 'Submit Online Application', desc: 'Complete our 5-step digital application wizard.' },
-    { step: '04', title: 'Upload Official Documents', desc: 'Upload certified transcripts, ID copies, & recommendation letters.' },
-    { step: '05', title: 'Committee Review & Interview', desc: 'Admissions committee evaluates application within 5 business days.' },
-    { step: '06', title: 'Enrollment & Offer Confirmation', desc: 'Receive official Meridian Acceptance Letter & reference code.' }
+    { step: '01', title: 'Explore Degree Programs', icon: BookOpen, desc: 'Review undergraduate, postgraduate, and diploma offerings, entry benchmarks, and graduate career outcomes.', actionText: 'View All Curricula' },
+    { step: '02', title: 'Verify Academic Eligibility', icon: ShieldCheck, desc: 'Ensure high school or undergraduate transcripts, GPA minimums, and language test certificates align with standards.', actionText: 'Check Guidelines' },
+    { step: '03', title: 'Submit Digital Application', icon: FileText, desc: 'Fill out our interactive 5-step application wizard with your personal credentials and academic background.', actionText: 'Start Application' },
+    { step: '04', title: 'Upload Credentials & SOP', icon: Layers, desc: 'Upload scanned copies of official academic transcripts, national identity/passport, and statement of purpose.', actionText: 'Document Hub' },
+    { step: '05', title: 'Faculty Review & Interview', icon: UserCheck, desc: 'Admissions evaluation committee reviews application and conducts virtual interview within 5 business days.', actionText: 'Interview Tips' },
+    { step: '06', title: 'Accept Offer & Enrolment', icon: Award, desc: 'Receive official Meridian Acceptance Letter, pay enrolment fee, and receive student registration credentials.', actionText: 'Enroll Now' }
   ];
+
+  const activeStep = ADMISSION_STEPS[activeStepIdx];
 
   return (
     <div className="py-12 bg-meridian-slate-50 min-h-screen">
@@ -42,7 +47,7 @@ export const AdmissionsPage: React.FC<AdmissionsPageProps> = ({ onNavigate }) =>
         {/* Banner Header */}
         <div className="bg-meridian-navy rounded-3xl p-8 sm:p-14 text-white relative overflow-hidden shadow-2xl border border-meridian-gold/30">
           <div className="max-w-3xl space-y-4 relative z-10">
-            <span className="bg-meridian-gold/20 text-meridian-gold border border-meridian-gold/30 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+            <span className="bg-meridian-gold/20 text-meridian-gold border border-meridian-gold/30 px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
               ADMISSIONS & TUITION 2026
             </span>
             <h1 className="font-serif text-3xl sm:text-5xl font-extrabold leading-tight">
@@ -54,14 +59,14 @@ export const AdmissionsPage: React.FC<AdmissionsPageProps> = ({ onNavigate }) =>
             <div className="pt-2 flex flex-wrap gap-4">
               <button
                 onClick={() => onNavigate('apply')}
-                className="bg-meridian-gold hover:bg-meridian-gold-light text-meridian-navy font-bold px-6 py-3 rounded-xl shadow-gold-glow text-xs sm:text-sm flex items-center gap-2"
+                className="btn-premium-gold px-6 py-3 text-xs sm:text-sm group"
               >
                 <span>Launch Online Application Portal</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
               <button
                 onClick={() => onNavigate('tracking')}
-                className="bg-white/10 hover:bg-white/20 text-white font-medium px-5 py-3 rounded-xl text-xs sm:text-sm border border-white/20"
+                className="btn-premium-glass px-5 py-3 text-xs sm:text-sm"
               >
                 Track Application Reference
               </button>
@@ -69,29 +74,90 @@ export const AdmissionsPage: React.FC<AdmissionsPageProps> = ({ onNavigate }) =>
           </div>
         </div>
 
-        {/* Step-by-step Admission Process */}
-        <div className="space-y-8">
+        {/* Interactive Step-by-step Admission Roadmap (Replaces 6-card grid) */}
+        <ScrollReveal variant="fadeUp" className="space-y-8">
           <div className="text-center max-w-xl mx-auto space-y-2">
-            <span className="text-xs font-bold text-meridian-gold uppercase tracking-wider">
-              ROADMAP TO ENROLLMENT
-            </span>
-            <h2 className="font-serif text-3xl font-bold text-meridian-navy">
-              6-Step Admission Process
+            <div className="inline-flex items-center gap-2 bg-meridian-navy/5 border border-meridian-navy/10 px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-meridian-navy">
+              <Sparkles className="w-3.5 h-3.5 text-meridian-gold" />
+              <span>ROADMAP TO ENROLLMENT</span>
+            </div>
+            <h2 className="font-serif text-3xl sm:text-4xl font-extrabold text-meridian-navy">
+              6-Step Admission Journey
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {ADMISSION_STEPS.map((s, idx) => (
-              <div key={idx} className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm relative group hover:border-meridian-gold transition-colors">
-                <span className="font-serif font-extrabold text-3xl text-meridian-gold/40 group-hover:text-meridian-gold transition-colors">
-                  {s.step}
-                </span>
-                <h4 className="font-serif font-bold text-base text-meridian-navy mt-2">{s.title}</h4>
-                <p className="text-slate-600 text-xs mt-1 leading-relaxed">{s.desc}</p>
-              </div>
-            ))}
+          <div className="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-sm space-y-8">
+            
+            {/* Step Navigation Bar */}
+            <div className="grid grid-cols-3 md:grid-cols-6 gap-2 border-b border-slate-200 pb-6">
+              {ADMISSION_STEPS.map((s, idx) => {
+                const isActive = idx === activeStepIdx;
+                return (
+                  <button
+                    key={s.step}
+                    onClick={() => setActiveStepIdx(idx)}
+                    className={`p-3 rounded-2xl text-center transition-all duration-300 relative ${
+                      isActive
+                        ? 'bg-meridian-navy text-white shadow-lg'
+                        : 'bg-slate-50 hover:bg-slate-100 text-slate-600'
+                    }`}
+                  >
+                    {isActive && (
+                      <motion.div
+                        layoutId="activeAdmissionStep"
+                        className="absolute bottom-0 left-0 right-0 h-1 bg-meridian-gold rounded-full"
+                      />
+                    )}
+                    <div className={`font-serif font-extrabold text-lg font-mono ${isActive ? 'text-meridian-gold' : 'text-slate-400'}`}>
+                      {s.step}
+                    </div>
+                    <div className="text-[11px] font-bold truncate mt-0.5">{s.title.split(' ')[0]}</div>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Active Stage Display Canvas */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeStep.step}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-slate-50 p-6 sm:p-8 rounded-2xl border border-slate-200/80"
+              >
+                <div className="lg:col-span-8 space-y-4">
+                  <div className="inline-flex items-center gap-2 bg-meridian-navy/10 text-meridian-navy font-bold px-3 py-1 rounded-full text-xs">
+                    <span>STEP {activeStep.step} OF 06</span>
+                  </div>
+                  <h3 className="font-serif font-bold text-2xl sm:text-3xl text-meridian-navy">
+                    {activeStep.title}
+                  </h3>
+                  <p className="text-slate-600 text-sm leading-relaxed max-w-2xl">
+                    {activeStep.desc}
+                  </p>
+                  <div className="pt-2">
+                    <button
+                      onClick={() => onNavigate('apply')}
+                      className="btn-premium-gold px-6 py-2.5 text-xs group inline-flex"
+                    >
+                      <span>{activeStep.actionText}</span>
+                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </button>
+                  </div>
+                </div>
+
+                <div className="lg:col-span-4 flex justify-center">
+                  <div className="w-32 h-32 rounded-3xl bg-meridian-navy text-meridian-gold flex items-center justify-center shadow-2xl border-2 border-meridian-gold/40 animate-float-subtle">
+                    <activeStep.icon className="w-14 h-14" />
+                  </div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+
           </div>
-        </div>
+        </ScrollReveal>
 
         {/* Interactive Tuition Fee Calculator & Structure */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
@@ -182,7 +248,7 @@ export const AdmissionsPage: React.FC<AdmissionsPageProps> = ({ onNavigate }) =>
                   id="housing"
                   checked={housing}
                   onChange={(e) => setHousing(e.target.checked)}
-                  className="w-4 h-4 accent-meridian-gold rounded"
+                  className="w-4 h-4 accent-meridian-gold rounded cursor-pointer"
                 />
                 <label htmlFor="housing" className="text-slate-300 cursor-pointer">
                   Include On-Campus Student Residence & Meals (+$2,400 / sem)
@@ -203,7 +269,7 @@ export const AdmissionsPage: React.FC<AdmissionsPageProps> = ({ onNavigate }) =>
 
               <button
                 onClick={() => onNavigate('apply')}
-                className="w-full bg-gradient-to-r from-meridian-gold to-amber-500 text-meridian-navy font-bold py-3 rounded-xl shadow-gold-glow text-center text-xs uppercase tracking-wider hover:brightness-110"
+                className="btn-premium-gold w-full py-3.5 text-xs font-bold uppercase tracking-wider"
               >
                 Proceed to Apply Online →
               </button>
@@ -216,3 +282,4 @@ export const AdmissionsPage: React.FC<AdmissionsPageProps> = ({ onNavigate }) =>
     </div>
   );
 };
+

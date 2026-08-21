@@ -127,7 +127,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onShowToast }) => {
 
                 <button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-meridian-gold to-amber-500 text-meridian-navy font-bold py-3 rounded-xl shadow-gold-glow text-xs uppercase tracking-wider flex items-center justify-center gap-2 hover:brightness-110"
+                  className="btn-premium-gold w-full py-3.5 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2"
                 >
                   <Send className="w-4 h-4" />
                   <span>Transmit Official Inquiry</span>

@@ -54,13 +54,13 @@ export const QuickActions: React.FC<QuickActionsProps> = ({ onNavigate, onOpenPr
               <StaggerItem key={action.title}>
                 <div
                   onClick={() => action.onClick(onNavigate, onOpenProspectus)}
-                  className={`card-premium bg-white border border-slate-200/90 rounded-2xl p-5 shadow-sm hover:shadow-lg hover:border-meridian-gold/60 cursor-pointer group flex items-center justify-between h-full ${
-                    action.primary ? 'border-t-2 border-t-meridian-gold' : ''
+                  className={`bg-white border border-slate-200/90 rounded-2xl p-5 shadow-sm hover:shadow-xl hover:border-meridian-gold cursor-pointer group flex items-center justify-between h-full relative overflow-hidden transition-all duration-300 transform hover:-translate-y-1 ${
+                    action.primary ? 'border-t-4 border-t-meridian-gold bg-gradient-to-br from-white via-slate-50 to-amber-50/20' : ''
                   }`}
                 >
-                  <div className="flex items-center gap-3.5">
-                    <div className="w-10 h-10 rounded-xl bg-meridian-navy/5 border border-meridian-navy/10 flex items-center justify-center text-meridian-navy group-hover:bg-meridian-navy group-hover:text-meridian-gold group-hover:border-meridian-navy transition-all duration-300 shrink-0">
-                      <IconComponent className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
+                  <div className="flex items-center gap-3.5 relative z-10">
+                    <div className="w-11 h-11 rounded-2xl bg-meridian-navy text-meridian-gold shadow-md flex items-center justify-center group-hover:scale-110 group-hover:bg-meridian-gold group-hover:text-meridian-navy transition-all duration-300 shrink-0">
+                      <IconComponent className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
                     </div>
                     <div className="space-y-0.5">
                       <div className="flex items-center gap-1.5">
@@ -68,15 +68,15 @@ export const QuickActions: React.FC<QuickActionsProps> = ({ onNavigate, onOpenPr
                           {action.title}
                         </h3>
                         {action.badge && (
-                          <span className="bg-meridian-gold/20 text-meridian-navy font-bold text-[9px] uppercase px-1.5 py-0.5 rounded">
+                          <span className="bg-meridian-gold text-meridian-navy font-extrabold text-[9px] uppercase px-1.5 py-0.5 rounded shadow-sm">
                             {action.badge}
                           </span>
                         )}
                       </div>
-                      <p className="text-[11px] sm:text-xs text-slate-500">{action.desc}</p>
+                      <p className="text-[11px] sm:text-xs text-slate-500 font-medium">{action.desc}</p>
                     </div>
                   </div>
-                  <ArrowUpRight className="w-4 h-4 text-slate-400 group-hover:text-meridian-gold group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300 shrink-0 ml-2" />
+                  <ArrowUpRight className="w-4 h-4 text-slate-400 group-hover:text-meridian-gold group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300 shrink-0 ml-2 relative z-10" />
                 </div>
               </StaggerItem>
             );

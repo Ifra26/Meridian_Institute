@@ -110,50 +110,51 @@ export const NewsEventsPage: React.FC<NewsEventsPageProps> = ({ onShowToast }) =
               </div>
             )}
 
-            {/* News Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* News Editorial Grid */}
+            <StaggerReveal className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" stagger={0.08}>
               {NEWS_DATA.map((article) => (
-                <div
-                  key={article.id}
-                  onClick={() => setSelectedArticle(article)}
-                  className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:border-meridian-gold/40 transition-all cursor-pointer group flex flex-col justify-between"
-                >
-                  <div>
-                    <div className="relative h-48 bg-slate-800 overflow-hidden">
-                      <img
-                        src={article.image}
-                        alt={article.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                      <span className="absolute top-3 left-3 bg-meridian-navy text-meridian-gold font-bold text-[10px] uppercase px-2.5 py-1 rounded">
-                        {article.category}
-                      </span>
-                    </div>
-
-                    <div className="p-6 space-y-2">
-                      <div className="flex items-center gap-2 text-[11px] text-slate-400">
-                        <span>{article.date}</span>
-                        <span>•</span>
-                        <span>{article.readTime}</span>
+                <StaggerItem key={article.id}>
+                  <div
+                    onClick={() => setSelectedArticle(article)}
+                    className="bg-white border border-slate-200/90 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl hover:border-meridian-gold/50 transition-all duration-300 cursor-pointer group flex flex-col justify-between h-full transform hover:-translate-y-1"
+                  >
+                    <div>
+                      <div className="relative h-48 bg-slate-800 overflow-hidden img-premium-hover">
+                        <img
+                          src={article.image}
+                          alt={article.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <span className="absolute top-3 left-3 bg-meridian-navy text-meridian-gold font-extrabold text-[10px] uppercase px-3 py-1 rounded-full shadow-md">
+                          {article.category}
+                        </span>
                       </div>
 
-                      <h3 className="font-serif font-bold text-base text-meridian-navy group-hover:text-meridian-gold transition-colors line-clamp-2 leading-snug">
-                        {article.title}
-                      </h3>
+                      <div className="p-6 space-y-2">
+                        <div className="flex items-center gap-2 text-[11px] text-slate-400 font-semibold">
+                          <span>{article.date}</span>
+                          <span>•</span>
+                          <span>{article.readTime}</span>
+                        </div>
 
-                      <p className="text-xs text-slate-600 line-clamp-3 leading-relaxed">
-                        {article.excerpt}
-                      </p>
+                        <h3 className="font-serif font-bold text-base text-meridian-navy group-hover:text-meridian-gold transition-colors line-clamp-2 leading-snug">
+                          {article.title}
+                        </h3>
+
+                        <p className="text-xs text-slate-600 line-clamp-3 leading-relaxed">
+                          {article.excerpt}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="p-6 pt-0 border-t border-slate-100 mt-4 flex items-center justify-between text-xs font-bold text-meridian-navy group-hover:text-meridian-gold">
+                      <span>Read Story</span>
+                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </div>
                   </div>
-
-                  <div className="p-6 pt-0 border-t border-slate-100 mt-4 flex items-center justify-between text-xs font-semibold text-meridian-navy group-hover:text-meridian-gold">
-                    <span>Read Story</span>
-                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                  </div>
-                </div>
+                </StaggerItem>
               ))}
-            </div>
+            </StaggerReveal>
 
           </div>
         )}
